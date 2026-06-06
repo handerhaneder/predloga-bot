@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$s = git status --porcelain 2>$null; if ($s) { git add -A; git commit -m \"sync: $(Get-Date -Format 'yyyy-MM-dd HH:mm')\" 2>$null }; $a = 0; try { $a = [int](git rev-list --count '@{u}..HEAD' 2>$null) } catch {}; if ($a -gt 0) { git push 2>$null }",
+            "timeout": 30,
+            "statusMessage": "Синхронизация с GitHub..."
+          }
+        ]
+      }
+    ]
+  }
+}
